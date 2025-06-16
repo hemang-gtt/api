@@ -9,7 +9,7 @@ const { dbLog } = require('../logs/index');
 
 const gameLaunch = async (payload, playerInfo) => {
   console.log('hi ---------I am helper for player service---------');
-  const playerInstance = await Player(process.env.DbName + `-${payload?.consumerId}`);
+  const playerInstance = await Player(process.env.DB_NAME + `-${payload?.consumerId}`);
 
   const player = await playerInstance
     .findOne({

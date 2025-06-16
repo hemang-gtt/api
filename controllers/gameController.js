@@ -5,7 +5,7 @@ const { isValidCurrencyProxy, CurrencyAPI } = require('../utils/common');
 
 const { redisClient: redis, redisDb } = require('../DB/redis');
 const getWalletBalance = async (id, clientId) => {
-  const playerInstance = await Player(`${process.env.DbName}-${clientId}`);
+  const playerInstance = await Player(`${process.env.DB_NAME}-${clientId}`);
 
   let playerData = await playerInstance.findById(id).lean();
 
@@ -51,7 +51,7 @@ const getWalletBalance = async (id, clientId) => {
 const saveAtStart = async (gameCount, startTime, totalUsers, totalBet) => {
   logger.info(`Data after starting the game --------------getting storee---`);
 
-  const GameInstance = await Game(`${process.env.DbName}-${process.env.CONSUMER_ID}`);
+  const GameInstance = await Game(`${process.env.DB_NAME}-${process.env.CONSUMER_ID}`);
 
   const gameData = { gameCount: gameCount, totalUsers: totalUsers, totalBet: totalBet, startTime: startTime };
 
@@ -72,7 +72,7 @@ const saveAtCrash = async (gameId, endTime, totalWin, multiplier) => {
     totalWin: totalWin,
     multiplier: multiplier,
   };
-  const GameInstance = await Game(`${process.env.DbName}-${process.env.CONSUMER_ID}`);
+  const GameInstance = await Game(`${process.env.DB_NAME}-${process.env.CONSUMER_ID}`);
   logger.info('game data going to save after crash in game collection---', data);
   const savedGame = await GameInstance.findByIdAndUpdate({ _id: gameId }, { $set: data });
 

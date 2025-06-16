@@ -31,10 +31,10 @@ const winRequest = async (transactionId, player, amount, gameId, winObj, key, ga
     win.txDetails = res.txDetails;
 
     logger.info(`Win data saved in model--------${JSON.stringify(win)}`);
-    const winInstance = await Win(process.env.DbName + `-${player?.consumerId}`);
+    const winInstance = await Win(process.env.DB_NAME + `-${player?.consumerId}`);
     const newWin = new winInstance(win);
     await newWin.save();
-    const playerInstance = await Player(`${process.env.DbName}-${process.env.CONSUMER_ID}`);
+    const playerInstance = await Player(`${process.env.DB_NAME}-${process.env.CONSUMER_ID}`);
     let playerData = await playerInstance.findOneAndUpdate(
       { _id: player._id },
       { $set: { balance: res.balance } },

@@ -34,10 +34,10 @@ const betRequest = async (transactionId, roundId, player, betJson, playerId, gam
     dbLog(`SET, req: BET, playerId: ${player._id}, data: ${JSON.stringify(bet)}`);
 
     logger.info(`bet data going to save is ----------${JSON.stringify(bet)}`);
-    const betInstance = await Bet(process.env.DbName + `-${player?.consumerId}`);
+    const betInstance = await Bet(process.env.DB_NAME + `-${player?.consumerId}`);
     const newBet = new betInstance(bet);
     const savedBet = await newBet.save();
-    const playerInstance = await Player(`${process.env.DbName}-${process.env.CONSUMER_ID}`);
+    const playerInstance = await Player(`${process.env.DB_NAME}-${process.env.CONSUMER_ID}`);
     await playerInstance.findOneAndUpdate({ _id: player._id }, { $set: { balance: res.balance } }, { new: true });
     betJson.api = 'SUCCESS';
     await redis.hset(`${redisDb}:{room-${gameCount}}`, `${playerId}_${roundId}`, JSON.stringify(betJson));
@@ -101,7 +101,7 @@ const cancelRequest = async (player, bet) => {
     logger.info(`refund data going to save in db is ----${refund}`);
     dbLog(`SET, req: Cancel, playerId: ${player._id}, data: ${JSON.stringify(refund)}`);
 
-    const refundInstance = await Refund(process.env.DbName + `-${player?.consumerId}`);
+    const refundInstance = await Refund(process.env.DB_NAME + `-${player?.consumerId}`);
     const newRefund = new refundInstance(refund);
     await newRefund.save();
 

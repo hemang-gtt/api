@@ -9,7 +9,7 @@ const http = require('http');
 const server = http.createServer(app); // ! should we use https in
 
 const port = process.env.API_PORT;
-const DbName = process.env.DbName;
+const DbName = process.env.DB_NAME;
 
 getDatabaseConnection(DbName);
 

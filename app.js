@@ -40,7 +40,7 @@ app.get('/', (req, res) => {
 });
 const basePath = process.env.BASE_PATH;
 
-app.post(`${basePath}/game/launch`, async (req, res, next) => {
+app.get(`${basePath}/games/launch`, async (req, res, next) => {
   logger.info(`Let's launch the game dude ----------------`);
 
   try {
@@ -77,7 +77,8 @@ app.post(`${basePath}/game/launch`, async (req, res, next) => {
     logger.info(`User id and params are -------${userId} and params are -----${params}`);
     // ! need to ask why wallet balance here ----
 
-    return res.status(200).json({ response });
+    return res.redirect(response.url);
+    //  return res.status(200).json({ response });
   } catch (error) {
     logger.info(`Error is ----------${JSON.stringify(error)}`);
     const axiosError = error?.response ? error : error?.error; // handles nested errors
@@ -182,7 +183,7 @@ async function OnStart(gameCount, startTime) {
         const betId = key.split('_')[1];
         // const client Id = key.split();
 
-        const playerInstance = await Player(`${process.env.DbName}-${process.env.CONSUMER_ID}`);
+        const playerInstance = await Player(`${process.env.DB_NAME}-${process.env.CONSUMER_ID}`);
         let player = await playerInstance.findById(playerId).lean();
         if (!player) continue;
 
@@ -252,7 +253,7 @@ async function handleCashouts(gameCount, endTime, multiplier, baseCase = false) 
           const gameId = key.split('_')[1];
 
           logger.info(`User id -----------${userId}-------gameID is --${gameId}`);
-          const playerInstance = await Player(`${process.env.DbName}-${process.env.CONSUMER_ID}`);
+          const playerInstance = await Player(`${process.env.DB_NAME}-${process.env.CONSUMER_ID}`);
           let player = await playerInstance.findById(userId).lean();
 
           if (!player) continue;
