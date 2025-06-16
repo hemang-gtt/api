@@ -136,7 +136,7 @@ const registerPlayer = async (payload, playerInfo, playerInstance) => {
   dbLog(`SET, req: REGISTER, data: ${JSON.stringify(playerData)}`);
 
   let response = {
-    url: `${process.env.GAME_BASE_URL}?userId=${savedPlayer._id}&token=${token}&locale=${playerData.lang}&api=true&base=${process.env.BASE}&type=${process.env.TYPE}&path=${process.env.BASE_PATH}/`,
+    url: `${process.env.GAME_BASE_URL}?userId=${savedPlayer._id}&token=${token}&locale=${playerData.lang}&api=true&base=${process.env.BASE}&type=${process.env.TYPE}&path=${process.env.API_BASE_PATH}/`,
   };
   // save this data to master model
   saveToMaster(savedPlayer._id, 'REGISTER', payload, response);
@@ -179,7 +179,7 @@ const updatePlayer = async (payload, playerInfo, playerInstance, existingPlayer)
   dbLog(`SET, req: LOGIN, playerId: ${existingPlayer._id}, data: ${JSON.stringify(playerData)}`);
 
   let response = {
-    url: `${process.env.GAME_BASE_URL}?userId=${updatedPlayer._id}&token=${token}&locale=${playerData.lang}&api=true&base=${process.env.BASE}&type=${process.env.TYPE}&path=${process.env.BASE_PATH}/`,
+    url: `${process.env.GAME_BASE_URL}?userId=${updatedPlayer._id}&token=${token}&locale=${playerData.lang}&api=true&base=${process.env.BASE}&type=${process.env.TYPE}&path=${process.env.API_BASE_PATH}/`,
   };
 
   console.log('respnse is --------------', response);

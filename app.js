@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
     message: 'hello world !!!!!!!!!!!!!',
   });
 });
-const basePath = process.env.BASE_PATH;
+const basePath = process.env.API_BASE_PATH;
 
 app.get(`${basePath}/games/launch`, async (req, res, next) => {
   logger.info(`Let's launch the game dude ----------------`);
